@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 class Search extends Component {
 
     static propTypes = {
-        moveToShelf: PropTypes.func.isRequired
+        moveToShelf: PropTypes.func.isRequired,
+        shelves: PropTypes.object.isRequired
     }
 
     state = {
@@ -22,7 +23,7 @@ class Search extends Component {
             .then(
                 data => {
                     this.setState({
-                    books: data
+                        books: data
                     });
                 }
             );
@@ -46,7 +47,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BooksGrid books={this.state.books} moveToShelf={this.props.moveToShelf} />
+                    <BooksGrid books={this.state.books} moveToShelf={this.props.moveToShelf} shelves={this.props.shelves} />
                 </div>
             </div>
         );

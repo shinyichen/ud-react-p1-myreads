@@ -7,7 +7,12 @@ import { Route, Link } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    shelves: {
+      currentlyReading: [], // book id's
+      wantToRead: [],
+      read: []
+    }
   }
 
   componentDidMount() {
@@ -16,9 +21,14 @@ class BooksApp extends React.Component {
 
   reloadbooks = () => {
     BooksAPI.getAll().then(
-      data => {
+      books => {
         this.setState({
-          books: data
+          books: books,
+          shelves: {
+            currentlyReading: books.filter(book => (book.shelf === "currentlyReading")).map(book => (book.id)),
+            wantToRead: books.filter(book => (book.shelf === "wantToRead")).map(book => (book.id)),
+            read: books.filter(book => (book.shelf === "read")).map(book => (book.id))
+          }
         });
       }
     );
@@ -26,7 +36,9 @@ class BooksApp extends React.Component {
 
   moveToShelf = (bookId, shelf) => {
     BooksAPI.update(bookId, shelf).then(
-      data => this.reloadbooks()
+      data => {
+        this.reloadbooks();
+      }
     );
   }
 
@@ -34,7 +46,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/search" render={() => (
-          <Search moveToShelf={this.moveToShelf}/>
+          <Search moveToShelf={this.moveToShelf} shelves={this.state.shelves}/>
         )} />
         <Route exact path="/" render={() => (
           <div className="list-books">
@@ -45,13 +57,16 @@ class BooksApp extends React.Component {
               <div>
                 <Bookshelf title="Current Reading" 
                             books={this.state.books.filter((book) => (book.shelf === 'currentlyReading'))} 
-                            moveToShelf={this.moveToShelf} />
+                            moveToShelf={this.moveToShelf} 
+                            shelves={this.state.shelves} />
                 <Bookshelf title="Want to Read" 
                             books={this.state.books.filter((book) => (book.shelf === 'wantToRead'))} 
-                            moveToShelf={this.moveToShelf} />
+                            moveToShelf={this.moveToShelf} 
+                            shelves={this.state.shelves}/>
                 <Bookshelf title="Read" 
                             books={this.state.books.filter((book) => (book.shelf === 'read'))} 
-                            moveToShelf={this.moveToShelf} />
+                            moveToShelf={this.moveToShelf} 
+                            shelves={this.state.shelves}/>
               </div>
             </div>
             <div className="open-search">

@@ -5,7 +5,8 @@ class BookMenu extends Component {
 
     static propTypes = {
         book: PropTypes.object.isRequired,
-        moveToShelf: PropTypes.func.isRequired
+        moveToShelf: PropTypes.func.isRequired,
+        shelf: PropTypes.string.isRequired
     }
 
     handleSelect = (event) => {
@@ -16,7 +17,7 @@ class BookMenu extends Component {
     render() {
         return (
             <div className="book-shelf-changer">
-                <select value={this.props.book.shelf} onChange={this.handleSelect}>
+                <select value={this.props.shelf} onChange={this.handleSelect}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
