@@ -12,7 +12,7 @@ class BooksGrid extends Component {
     render() {
         return (
             <ol className="books-grid">
-                {this.props.books.map(book => (
+                {this.props.books.length > 0 && this.props.books.map(book => (
                     <li key={book.id}><Book book={book} moveToShelf={this.props.moveToShelf} /></li>
                 ))}
             </ol>
