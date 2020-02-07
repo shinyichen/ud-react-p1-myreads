@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import BooksGrid from './BooksGrid.component';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
+
+    static propTypes = {
+        moveToShelf: PropTypes.func.isRequired
+    }
 
     state = {
         query: "",
@@ -41,7 +46,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BooksGrid books={this.state.books} />
+                    <BooksGrid books={this.state.books} moveToShelf={this.props.moveToShelf} />
                 </div>
             </div>
         );
