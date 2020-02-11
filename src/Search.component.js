@@ -23,7 +23,7 @@ class Search extends Component {
             .then(
                 data => {
                     this.setState({
-                        books: data
+                        books: (Array.isArray(data))? data : []
                     });
                 }
             );
