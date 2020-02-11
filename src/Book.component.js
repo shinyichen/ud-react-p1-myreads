@@ -13,7 +13,8 @@ class Book extends Component {
     coverStyle = {
         width: 128, 
         height: 188, 
-        backgroundImage: 'url(' + this.props.book.imageLinks.smallThumbnail + ')'
+        backgroundImage: ("imageLinks" in this.props.book)? 
+            'url(' + this.props.book.imageLinks.smallThumbnail + ')' : "none"
     };
 
     getShelf = (bookId) => {
