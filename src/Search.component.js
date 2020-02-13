@@ -27,6 +27,10 @@ class Search extends Component {
                     });
                 }
             );
+        } else {
+            this.setState({
+                books: []
+            });
         }
     };
 
