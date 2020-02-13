@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import BooksGrid from './BooksGrid.component';
 import PropTypes from 'prop-types';
+import { DebounceInput } from 'react-debounce-input';
 
 class Search extends Component {
 
@@ -47,7 +48,12 @@ class Search extends Component {
                 <div className="search-books-bar">
                     <Link to="/"><button className="close-search">Close</button></Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={this.handleQueryChange} />
+                        <DebounceInput
+                            minLength={2} 
+                            placeholder="Search by title or author" 
+                            value={this.state.query} 
+                            onChange={this.handleQueryChange}
+                            />
                     </div>
                 </div>
                 <div className="search-books-results">
