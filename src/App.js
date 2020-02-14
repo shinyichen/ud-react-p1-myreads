@@ -16,6 +16,12 @@ class BooksApp extends React.Component {
     }
   }
 
+  shelves = [
+    {title: "Currently Reading", id: "currentlyReading"},
+    {title: "Want to Read", id: "wantToRead"},
+    {title: "Read", id: "read"}
+  ]
+
   componentDidMount() {
     this.reloadbooks();
   }
@@ -57,18 +63,12 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <Bookshelf title="Current Reading" 
-                              books={this.state.books.filter((book) => (book.shelf === 'currentlyReading'))} 
-                              moveToShelf={this.moveToShelf} 
-                              shelves={this.state.shelves} />
-                  <Bookshelf title="Want to Read" 
-                              books={this.state.books.filter((book) => (book.shelf === 'wantToRead'))} 
-                              moveToShelf={this.moveToShelf} 
-                              shelves={this.state.shelves}/>
-                  <Bookshelf title="Read" 
-                              books={this.state.books.filter((book) => (book.shelf === 'read'))} 
-                              moveToShelf={this.moveToShelf} 
-                              shelves={this.state.shelves}/>
+                  {this.shelves.map((shelf) => (
+                    <Bookshelf title={shelf.title} 
+                                books={this.state.books.filter((book) => (book.shelf === shelf.id))} 
+                                moveToShelf={this.moveToShelf} 
+                                shelves={this.state.shelves} />
+                  ))};
                 </div>
               </div>
               <div className="open-search">
